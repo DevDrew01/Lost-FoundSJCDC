@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nandito Ako</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="m-0 min-h-screen font-sans text-[#0f155a] bg-[linear-gradient(110deg,#0D1F35_20%,#035149_55%,#016C37_100%)]">
+
+  <!-- Page Header -->
+  <header class="w-full px-6 py-4 flex items-center justify-start border-b border-white/10">
+    <div class="flex gap-3 items-center text-white">
+      <div class="w-[42px] h-[42px] rounded-full flex items-center justify-center overflow-hidden bg-white shrink-0">
+        <img src="/nandito ako/assets/sjcdcLogo.png" alt="PHINMA SJC logo" class="w-full h-auto block" />
+      </div>
+      <div>
+        <div class="font-bold text-[0.95rem] leading-tight font-serif">PHINMA St. Jude College Dasmariñas Cavite</div>
+        <div class="font-semibold text-[0.75rem] text-[#fabc2e] leading-tight font-sans tracking-[0.08em] uppercase mt-[2px]">Nandito Ako</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex items-center justify-center min-h-[calc(100vh-69px)] p-4 sm:p-6">
+
+    <section class="max-w-[1100px] w-full rounded-[20px] overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_minmax(320px,1fr)] shadow-[0_20px_60px_rgba(0,0,0,0.35)] bg-white">
+
+      <div class="bg-[linear-gradient(135deg,#1E5D73_30%,#1B3554_100%)] text-[#f8f8f8] p-8 lg:py-[3.2rem] lg:px-[2.4rem] flex flex-col justify-center gap-5">
+        <div class="uppercase text-[0.78rem] tracking-[0.12em] text-[#F0A500] font-semibold">PHINMA SJC Dasmariñas</div>
+        <h1 class="m-0 font-serif text-[clamp(2rem,3.8vw,3.5rem)] leading-[1.05]">
+          Nandito <span class="text-[#F0A500]"><br /><i>Ako.</i></span>
+        </h1>
+        <p class="m-0 max-w-[40ch] text-base leading-relaxed text-[#e8eff4]">
+          Your campus lost &amp; found — organized, searchable, and built to reunite items with
+          their owners. No more buried Freedom Wall posts.
+        </p>
+      </div>
+
+      <aside class="bg-[#fcfcfa] p-8 lg:py-[3rem] lg:px-[2.5rem] text-[#0f155a]">
+        <h2 class="m-0 text-[2rem] sm:text-[2.2rem] font-serif font-bold">Welcome back</h2>
+        <p class="mt-[0.4rem] mb-6 text-[#718096] text-[0.95rem]">Sign in to report or browse items</p>
+
+        <form class="flex flex-col gap-4" action="#" method="POST">
+
+          <label class="flex flex-col gap-[0.4rem] text-[0.88rem] text-[#485068] font-semibold">
+            STUDENT ID NUMBER
+            <input
+              type="text"
+              name="studentId"
+              placeholder="e.g. 10-2526-301491"
+              required
+              class="border border-[#d8e0ec] rounded-[0.65rem] py-[0.78rem] px-[0.9rem] text-base text-[#1f3259] bg-white transition-colors focus:outline-none focus:ring-[3px] focus:ring-[rgba(2,108,255,0.2)] focus:border-[#2060b3]"
+            />
+          </label>
+
+          <label class="flex flex-col gap-[0.4rem] text-[0.88rem] text-[#485068] font-semibold">
+            PASSWORD
+            <input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              required
+              class="border border-[#d8e0ec] rounded-[0.65rem] py-[0.78rem] px-[0.9rem] text-base text-[#1f3259] bg-white transition-colors focus:outline-none focus:ring-[3px] focus:ring-[rgba(2,108,255,0.2)] focus:border-[#2060b3]"
+            />
+          </label>
+
+          <button
+            type="submit"
+            class="mt-1 border-0 text-white bg-[#0D1F35] text-[1.05rem] font-bold rounded-[0.75rem] py-[0.9rem] px-4 cursor-pointer transition-all duration-150 ease-in hover:-translate-y-[1px] hover:shadow-[0_12px_26px_rgba(2,17,63,0.24)]"
+          >
+            Sign in
+          </button>
+
+          <p class="mt-2 text-[#8a95a9] text-[0.86rem] text-center">
+            Forgot password? Contact the ICT Office.
+          </p>
+
+        </form>
+      </aside>
+
+    </section>
+  </main>
+
+</body>
+</html>
