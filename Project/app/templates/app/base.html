@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nandito Ako · SJCDC{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+       tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                deepBlue: '#0D1F35',
+                brandTeal: '#035149',
+                brandGreen: '#016C37',
+                accentYellow: '#f0a500',
+                cream: '#faf9f6',
+                textDark: '#0d1f35',
+                textMuted: '#6b7f96',
+                navBlue: '#081a2e',
+                // Form Specific Colors
+                formText: '#6a7c92',
+                formBorder: '#eee',
+                formBg: '#fcfaf7',
+                formNavy: '#11233d',
+                // Found Page Colors (Green)
+                foundDark: '#0D2C20',
+                foundLight: '#33995D',
+                successGreen: '#166534',
+                successBg: '#f0fdf4',
+                // Lost Page Colors (Red)
+                lostDark: '#3C0F0F',
+                lostMid: '#6d201d',
+                lostLight: '#C0433E',
+            },
+            fontFamily: {
+                outfit: ['Outfit', 'sans-serif'],
+                playfair: ['Playfair Display', 'serif'],
+                },
+            }
+        }
+    }
+    </script>
+
+    <style type="text/tailwindcss">
+        .hero-gradient {
+            background: linear-gradient(110deg, #0D1F35 20%, #035149 55%, #016C37 100%);
+        }
+
+        .hero-underline {
+            background: linear-gradient(90deg, #F0A500 5%, #016C37 100%);
+        }
+
+        .filter-select, select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236a7c92' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 14px;
+        }
+
+        .surrender-box {
+            border: 1px solid #dcfce7;
+            background-color: #f0fdf4;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .surrender-header {
+            padding: 10px 15px;
+            background: rgba(220, 252, 231, 0.6);
+            border-bottom: 1px solid #dcfce7;
+            color: #166534;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="font-outfit bg-cream text-textDark leading-[1.5]">
+
+    <nav class="bg-navBlue text-white p-2 flex justify-between items-center min-h-[60px] border-b border-white/5">
+                    <div class="flex items-center gap-3">
+                        <a href="{% url 'home' %}" class="flex items-center gap-3 no-underline group">
+                <img src="{% static 'img/SJCDCLOGO.png' %}" alt="Logo" class="w-[35px] h-[35px] object-contain">
+
+                <div class="flex flex-col leading-[1.1]">
+                    <span class="font-playfair text-[0.8rem] font-bold tracking-[0.2px] text-white">
+                        PHINMA St. Jude College Dasmariñas
+                    </span>
+                    <span class="text-[0.65rem] text-accentYellow font-semibold uppercase">
+                        NANDITO AKO
+                    </span>
+                </div>
+            </a>
+        </div>
+
+        <div class="flex items-center gap-[15px]">
+            <span class="text-[0.65rem] font-bold text-[#3498db] border border-[#1e3a5f] px-3.5 py-1 rounded-full bg-[#1e3a5f]/20">STUDENT</span>
+            <div class="flex items-center gap-[10px] border border-[#23354d] p-[3px_12px_3px_4px] rounded-full">
+                <div class="w-7 h-7 bg-accentYellow text-deepBlue rounded-full flex items-center justify-center font-extrabold text-[0.7rem]">JD</div>
+                <div class="text-[0.75rem] leading-[1.1]">
+                    <b class="block">Juan Dela Cruz</b>
+                    <span class="text-[0.6rem] opacity-50 block">BSCS-201</span>
+                </div>
+            </div>
+            <a href="#" class="text-white no-underline text-[0.8rem] font-semibold flex items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100">
+                Sign Out
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

@@ -3,101 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nandito Ako</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
-
+  <title>Nandito Ako · Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-
+  
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          colors: {
+            brandBlue: '#1b3655',
+            brandTeal: '#1e5f74',
+            accentYellow: '#f0a500',
+            textDark: '#0d1f35',
+            inputBg: '#fcfcfa',
+          },
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
+            outfit: ['Outfit', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif'],
+            inter: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '24px',
           }
         }
       }
     }
   </script>
+
+  <style type="text/tailwindcss">
+    body {
+      background: linear-gradient(135deg, #0D1F35 0%, #074937 50%, #016C37 100%);
+    }
+    
+    .side-panel-gradient {
+      background: linear-gradient(160deg, #1e5f74 0%, #1b3655 100%);
+    }
+
+    .footer-glow {
+      background: linear-gradient(90deg, #f0a500 0%, transparent 100%);
+    }
+  </style>
 </head>
-<body class="m-0 min-h-screen font-sans text-[#0f155a] bg-[linear-gradient(110deg,#0D1F35_20%,#035149_55%,#016C37_100%)]">
+<body class="font-outfit min-h-screen flex flex-col text-textDark leading-[1.5]">
 
-  <!-- Page Header -->
-  <header class="w-full px-6 py-4 flex items-center justify-start border-b border-white/10">
-    <div class="flex gap-3 items-center text-white">
-      <div class="w-[42px] h-[42px] rounded-full flex items-center justify-center overflow-hidden bg-white shrink-0">
-        <img src="/nandito ako/assets/sjcdcLogo.png" alt="PHINMA SJC logo" class="w-full h-auto block" />
-      </div>
-      <div>
-        <div class="font-bold text-[0.95rem] leading-tight font-serif">PHINMA St. Jude College Dasmariñas Cavite</div>
-        <div class="font-semibold text-[0.75rem] text-[#fabc2e] leading-tight font-sans tracking-[0.08em] uppercase mt-[2px]">Nandito Ako</div>
-      </div>
-    </div>
-  </header>
+    <nav class="bg-transparent text-white p-2 flex justify-between items-center min-h-[60px] border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <img src="/nandito ako login - tailwind/assets/SJCDCLOGO.png" alt="Logo" class="w-[35px] h-[35px]">
+            <div class="flex flex-col leading-[1.2]">
+                <span class="font-playfair text-[0.8rem] font-bold tracking-[0.2px]">PHINMA St. Jude College Dasmariñas</span>
+                <span class="text-[0.65rem] text-accentYellow font-semibold uppercase">NANDITO AKO</span>
+            </div>
+        </div>
+    </nav>
 
-  <main class="flex items-center justify-center min-h-[calc(100vh-69px)] p-4 sm:p-6">
+    <main class="flex-1 flex items-center justify-center p-5">
+        <section class="bg-white w-full max-w-[900px] grid grid-cols-1 md:grid-cols-[45%_55%] rounded-custom overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]">
+            
+            <div class="side-panel-gradient p-11 md:p-[60px_45px] text-white relative hidden md:flex flex-col justify-center">
+                <div class="text-accentYellow text-[0.75rem] font-bold tracking-[1.5px] mb-5">PHINMA SJC DASMARIÑAS</div>
+                <h1 class="font-playfair text-[3.5rem] leading-[0.9] mb-[25px]">
+                    Nandito <br><span class="text-accentYellow font-extrabold italic">Ako.</span>
+                </h1>
+                <p class="text-[0.95rem] leading-[1.6] opacity-90 font-light">
+                  Your campus lost & found — organized, searchable, and built to reunite items with their owners. No more buried Freedom Wall posts.
+                </p>
+                <div class="footer-glow absolute bottom-0 left-0 w-full h-[6px]"></div>
+            </div>
 
-    <section class="max-w-[1100px] w-full rounded-[20px] overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_minmax(320px,1fr)] shadow-[0_20px_60px_rgba(0,0,0,0.35)] bg-white">
+            <div class="p-12 md:p-[60px_50px] bg-inputBg flex flex-col justify-center">
+                <div class="mb-[40px]">
+                    <h2 class="font-playfair text-[2.2rem] text-brandBlue mb-[5px]">Welcome back</h2>
+                    <p class="text-[#6b7f96] text-[0.9rem]">Sign in to report or browse items</p>
+                </div>
 
-      <div class="bg-[linear-gradient(135deg,#1E5D73_30%,#1B3554_100%)] text-[#f8f8f8] p-8 lg:py-[3.2rem] lg:px-[2.4rem] flex flex-col justify-center gap-5">
-        <div class="uppercase text-[0.78rem] tracking-[0.12em] text-[#F0A500] font-semibold">PHINMA SJC Dasmariñas</div>
-        <h1 class="m-0 font-serif text-[clamp(2rem,3.8vw,3.5rem)] leading-[1.05]">
-          Nandito <span class="text-[#F0A500]"><br /><i>Ako.</i></span>
-        </h1>
-        <p class="m-0 max-w-[40ch] text-base leading-relaxed text-[#e8eff4]">
-          Your campus lost &amp; found — organized, searchable, and built to reunite items with
-          their owners. No more buried Freedom Wall posts.
-        </p>
-      </div>
+                <form class="flex flex-col gap-[25px]">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[0.7rem] font-bold text-[#4a5568] tracking-[0.5px]">STUDENT ID NUMBER</label>
+                        <input type="text" placeholder="e.g 10-2526-301491" required 
+                               class="p-[14px_18px] border border-[#e2e8f0] rounded-[10px] font-inter text-[0.95rem] text-textDark transition-all focus:outline-none focus:border-brandTeal">
+                    </div>
 
-      <aside class="bg-[#fcfcfa] p-8 lg:py-[3rem] lg:px-[2.5rem] text-[#0f155a]">
-        <h2 class="m-0 text-[2rem] sm:text-[2.2rem] font-serif font-bold">Welcome back</h2>
-        <p class="mt-[0.4rem] mb-6 text-[#718096] text-[0.95rem]">Sign in to report or browse items</p>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[0.7rem] font-bold text-[#4a5568] tracking-[0.5px]">PASSWORD</label>
+                        <input type="password" placeholder="*********" required 
+                               class="p-[14px_18px] border border-[#e2e8f0] rounded-[10px] font-inter text-[0.95rem] text-textDark transition-all focus:outline-none focus:border-brandTeal">
+                    </div>
 
-        <form class="flex flex-col gap-4" action="#" method="POST">
-
-          <label class="flex flex-col gap-[0.4rem] text-[0.88rem] text-[#485068] font-semibold">
-            STUDENT ID NUMBER
-            <input
-              type="text"
-              name="studentId"
-              placeholder="e.g. 10-2526-301491"
-              required
-              class="border border-[#d8e0ec] rounded-[0.65rem] py-[0.78rem] px-[0.9rem] text-base text-[#1f3259] bg-white transition-colors focus:outline-none focus:ring-[3px] focus:ring-[rgba(2,108,255,0.2)] focus:border-[#2060b3]"
-            />
-          </label>
-
-          <label class="flex flex-col gap-[0.4rem] text-[0.88rem] text-[#485068] font-semibold">
-            PASSWORD
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              required
-              class="border border-[#d8e0ec] rounded-[0.65rem] py-[0.78rem] px-[0.9rem] text-base text-[#1f3259] bg-white transition-colors focus:outline-none focus:ring-[3px] focus:ring-[rgba(2,108,255,0.2)] focus:border-[#2060b3]"
-            />
-          </label>
-
-          <button
-            type="submit"
-            class="mt-1 border-0 text-white bg-[#0D1F35] text-[1.05rem] font-bold rounded-[0.75rem] py-[0.9rem] px-4 cursor-pointer transition-all duration-150 ease-in hover:-translate-y-[1px] hover:shadow-[0_12px_26px_rgba(2,17,63,0.24)]"
-          >
-            Sign in
-          </button>
-
-          <p class="mt-2 text-[#8a95a9] text-[0.86rem] text-center">
-            Forgot password? Contact the ICT Office.
-          </p>
-
-        </form>
-      </aside>
-
-    </section>
-  </main>
+                    <button type="submit" class="bg-textDark text-white p-[15px] border-none rounded-[10px] font-bold text-base cursor-pointer mt-[10px] transition-all hover:bg-[#162d4a] active:scale-[0.98] hover:-translate-y-px">
+                        Sign in
+                    </button>
+                    
+                    <a href="#" class="text-center text-[0.8rem] text-[#718096] no-underline mt-[5px] hover:underline">
+                        Forgot password? Contact the ICT Office.
+                    </a>
+                </form>
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>
