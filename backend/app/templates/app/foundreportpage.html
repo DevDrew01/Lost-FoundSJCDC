@@ -1,26 +1,26 @@
 {% extends "app/base.html" %}
 {% load static %}
 
-{% block title %}Report Lost Item · Nandito Ako{% endblock %}
+{% block title %}Report Found Item · Nandito Ako{% endblock %}
 
 {% block content %}
-    <header class="bg-[#3C0F0F] bg-gradient-to-r from-[#3C0F0F] via-[#6d201d] to-[#C0433E] py-[80px] relative text-white">
+    <header class="bg-[#0D2C20] bg-gradient-to-r from-[#0D2C20] to-[#33995D] py-[80px] relative text-white">
         <div class="max-w-[1100px] mx-0 px-[5%] text-left">
             <p class="text-[0.7rem] uppercase tracking-[1px] mb-5 text-[#f0a500] font-semibold">PHINMA SJC DASMARIÑAS · LOST & FOUND PORTAL</p>
-            <h1 class="font-playfair text-[3.5rem] leading-[1.1] mb-5 font-bold">Lost Something?</h1>
-            <p class="max-w-[450px] leading-[1.4] font-light opacity-90">Provide the details of your missing item so we can help you find it.</p>
+            <h1 class="font-playfair text-[3.5rem] leading-[1.1] mb-5 font-bold">Found Something?</h1>
+            <p class="max-w-[450px] leading-[1.4] font-light opacity-90">Please provide accurate details of the item you discovered to help us find the owner.</p>
         </div>
-        <div class="absolute bottom-0 left-0 w-full h-[6px] bg-gradient-to-r from-[#F0A500] to-[#BC423D]"></div>
+        <div class="hero-underline absolute bottom-0 left-0 w-full h-[6px]"></div>
     </header>
 
     <main class="max-w-2xl mx-auto mb-[60px] relative px-4 md:px-0">
         <div class="text-[0.85rem] mb-10 pt-10 text-[#1E5F74] font-medium flex items-center gap-[10px]">
-            Home <span class="text-[#6B7F96] font-bold mx-[5px]">›</span> Report Lost Item
+            Home <span class="text-[#6B7F96] font-bold mx-[5px]">›</span> Report Found Item
         </div>
 
         <section class="bg-white rounded-[15px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden">
             <div class="border-b border-[#edf2f7] p-8">
-                <h2 class="font-playfair text-[1.75rem] font-extrabold text-[#11233d] tracking-[-0.5px] mb-[2px]">Report a Lost Item</h2>
+                <h2 class="font-playfair text-[1.75rem] font-extrabold text-[#11233d] tracking-[-0.5px] mb-[2px]">Report a Found Item</h2>
                 <p class="text-[#6a7c92] text-[0.9rem] font-medium">Provide as much as detail as possible.</p>
             </div>
 
@@ -49,7 +49,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Last Seen Location *</label>
+                        <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Found At Location *</label>
                         <select class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none cursor-pointer text-sm focus:border-[#d1d9e2]">
                             <option>-- Select --</option>
                             <option>Library</option>
@@ -59,7 +59,7 @@
                         </select>
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Date Lost *</label>
+                        <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Date Found *</label>
                         <input type="date" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
                     </div>
                 </div>
@@ -77,8 +77,22 @@
                     </div>
                 </div>
 
+                <div class="surrender-box">
+                    <div class="surrender-header">Surrender Details</div>
+                    <div class="p-4 flex flex-col gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Where did you surrender the item? *</label>
+                            <input type="text" placeholder="e.g. CSDL Office" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-white outline-none text-sm focus:border-[#d1d9e2]">
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Pick up Time *</label>
+                            <input type="text" placeholder="e.g. 10 am to 12 pm only." class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-white outline-none text-sm focus:border-[#d1d9e2]">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex flex-col gap-1.5 mb-6">
-                    <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">How can people reach you? *</label>
+                    <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Contact Information *</label>
                     <input type="text" placeholder="e.g. Facebook account, email, or mobile number" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
                 </div>
 
