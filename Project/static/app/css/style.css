@@ -1,0 +1,30 @@
+.form-input-container input,
+.form-input-container textarea,
+.form-input-container select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid #E5E9F0;
+    background-color: #F8FAFD;
+    border-radius: 12px;
+    outline: none;
+    font-size: 0.95rem;
+    color: #1A374D;
+    transition: border-color 0.2s;
+}
+
+.form-input-container input:focus,
+.form-input-container textarea:focus,
+.form-input-container select:focus {
+    border-color: #f0a500;
+    background-color: #fff;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    tracking-widest: 0.1em;
+    color: #1A374D;
+}

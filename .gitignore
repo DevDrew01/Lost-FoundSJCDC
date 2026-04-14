@@ -1,0 +1,26 @@
+# Security & Credentials
+.env
+
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python junk
+__pycache__/
+*.py[cod]
+
+# Django specific
+db.sqlite3
+media/
+staticfiles/
+*.log
+
+# Database dumps
+*.sql
+*.dump
+
+# IDE settings
+.idea/
+.vscode/

@@ -10,73 +10,86 @@
             <h1 class="font-playfair text-[3.5rem] leading-[1.1] mb-5">
                 Find What Matters.<br>Return What Isn't Yours.
             </h1>
-            <p class="max-w-[450px] text-[1rem] leading-[1.4] font-light opacity-90">
-                Nandito Ako keeps every listing organized and searchable — so items get found, not forgotten in a feed.
-            </p>
-
             <div class="flex gap-[15px] mt-[30px]">
-                <a href="{% url 'lost_report' %}" class="bg-accentYellow text-textDark px-6 py-3 rounded-lg font-semibold transition-all hover:brightness-110">
-                Report a Lost Item
+                <a href="{% url 'lost_report' %}" class="bg-accentYellow text-textDark px-6 py-3 rounded-lg font-semibold transition-all hover:brightness-110 no-underline">
+                    Report a Lost Item
                 </a>
 
-                <a href="{% url 'found_report' %}" class="bg-white/10 text-white border border-white/30 backdrop-blur-md px-6 py-3 rounded-lg font-semibold transition-all hover:bg-white/20">
-                Report Found Item
+                <a href="{% url 'found_report' %}" class="bg-white/10 text-white border border-white/30 backdrop-blur-md px-6 py-3 rounded-lg font-semibold transition-all hover:bg-white/20 no-underline">
+                    Report Found Item
                 </a>
             </div>
         </div>
         <div class="hero-underline absolute bottom-0 left-0 w-full h-1.5"></div>
     </header>
 
-    <main class="max-w-[1200px] mx-auto mt-10 mb-[60px] p-10 relative">
-        <div class="mb-[30px]">
-            <h2 class="font-playfair text-[1.8rem] text-deepBlue">Recent <span class="text-[#1E5F74]">Listings</span></h2>
-        </div>
-
-        <div class="flex gap-[15px] items-center mb-10">
+    <main class="max-w-[1200px] mx-auto mt-10 mb-[60px] p-10">
+        <form method="GET" action="{% url 'home' %}" id="filter-form" class="flex gap-[15px] items-center mb-10">
             <div class="grow">
-                <input type="text" placeholder="Search by item, location, description..."
-                       class="w-full p-[12px_20px] rounded-[10px] border border-[#E5E9F0] bg-[#F8FAFD] focus:outline-none focus:border-accentYellow">
+                <input type="text" name="q" value="{{ query }}" placeholder="Search..."
+                       class="w-full p-[12px_20px] rounded-[10px] border border-[#E5E9F0] bg-[#F8FAFD] outline-none focus:border-accentYellow">
             </div>
+
             <div class="flex gap-2">
-                <button class="bg-deepBlue text-white px-[18px] py-2 rounded-full font-medium border border-deepBlue">All</button>
-                <button class="bg-white text-textDark px-[18px] py-2 rounded-full font-medium border border-[#E5E9F0] hover:bg-gray-50">Lost</button>
-                <button class="bg-white text-textDark px-[18px] py-2 rounded-full font-medium border border-[#E5E9F0] hover:bg-gray-50">Found</button>
-                <select class="filter-select appearance-none bg-white border border-[#E5E9F0] rounded-[10px] p-[8px_35px_8px_15px] text-[0.85rem] font-medium text-textDark cursor-pointer focus:outline-none focus:border-accentYellow">
-                    <option>All Locations</option>
-                    <option>Library</option>
-                    <option>Canteen</option>
-                    <option>Auditorium</option>
-                    <option>Classroom</option>
+                <input type="hidden" name="type" id="type-input" value="{{ current_type|default:'All' }}">
+
+                <button type="button" onclick="submitType('All')"
+                    class="px-[18px] py-2 rounded-full font-medium border {% if current_type == 'All' or not current_type %}bg-deepBlue text-white border-deepBlue{% else %}bg-white text-textDark border-[#E5E9F0]{% endif %}">
+                    All
+                </button>
+                <button type="button" onclick="submitType('LOST')"
+                    class="px-[18px] py-2 rounded-full font-medium border {% if current_type == 'LOST' %}bg-deepBlue text-white border-deepBlue{% else %}bg-white text-textDark border-[#E5E9F0]{% endif %}">
+                    Lost
+                </button>
+                <button type="button" onclick="submitType('FOUND')"
+                    class="px-[18px] py-2 rounded-full font-medium border {% if current_type == 'FOUND' %}bg-deepBlue text-white border-deepBlue{% else %}bg-white text-textDark border-[#E5E9F0]{% endif %}">
+                    Found
+                </button>
+
+                <select name="location" onchange="this.form.submit()"
+                        class="bg-white border border-[#E5E9F0] rounded-[10px] p-[8px_15px] text-[0.85rem] font-medium text-textDark outline-none">
+                    <option value="All" {% if current_location == "All" %}selected{% endif %}>All Locations</option>
+                    <option value="Library" {% if current_location == "Library" %}selected{% endif %}>Library</option>
+                    <option value="Canteen" {% if current_location == "Canteen" %}selected{% endif %}>Canteen</option>
+                    <option value="Auditorium" {% if current_location == "Auditorium" %}selected{% endif %}>Auditorium</option>
+                    <option value="Classroom" {% if current_location == "Classroom" %}selected{% endif %}>Classroom</option>
                 </select>
             </div>
-        </div>
+        </form>
 
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-5">
-            <div class="bg-white rounded-[15px] overflow-hidden border border-[#f0f0f0] shadow-[0_4px_15px_rgba(0,0,0,0.05)]">
-                <div class="h-40 bg-[#E6EEF5] p-2.5 relative">
-                    <span class="bg-[#FF5C5C] text-white text-[0.65rem] font-extrabold p-[4px_12px] rounded-full">LOST</span>
-                </div>
-                <div class="p-[15px]">
-                    <h3 class="text-[1rem] font-bold text-[#333] mb-3">Item Name</h3>
-                    <div class="flex gap-2">
-                        <span class="text-[0.65rem] bg-[#F0F4F8] text-[#6B7F96] p-[4px_10px] rounded-[5px] font-bold uppercase">Place</span>
-                        <span class="text-[0.65rem] bg-[#F0F4F8] text-[#6B7F96] p-[4px_10px] rounded-[5px] font-bold uppercase">Date</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {% for item in items %}
+            <a href="{% url 'itemdetail' item.id %}" class="bg-white rounded-[18px] shadow-lg overflow-hidden flex flex-col no-underline transition-transform hover:scale-[1.02]">
+                <div class="w-full aspect-square bg-[#DEE7F0] overflow-hidden relative">
+                    {% if item.image %}<img src="{{ item.image.url }}" class="w-full h-full object-cover">{% endif %}
+                    <div class="absolute top-3 left-3 px-3 py-1 rounded-full text-[9px] font-black text-white {% if item.report_type == 'LOST' %}bg-lostLight{% else %}bg-brandGreen{% endif %}">
+                        {{ item.report_type }}
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-[15px] overflow-hidden border border-[#f0f0f0] shadow-[0_4px_15px_rgba(0,0,0,0.05)]">
-                <div class="h-40 bg-[#E6EEF5] p-2.5 relative">
-                    <span class="bg-[#42B883] text-white text-[0.65rem] font-extrabold p-[4px_12px] rounded-full">FOUND</span>
-                </div>
-                <div class="p-[15px]">
-                    <h3 class="text-[1rem] font-bold text-[#333] mb-3">iPhone 14</h3>
-                    <div class="flex gap-2">
-                        <span class="text-[0.65rem] bg-[#F0F4F8] text-[#6B7F96] p-[4px_10px] rounded-[5px] font-bold uppercase">RM 217</span>
-                        <span class="text-[0.65rem] bg-[#F0F4F8] text-[#6B7F96] p-[4px_10px] rounded-[5px] font-bold uppercase">MARCH 26</span>
+                <div class="p-5">
+                    <h3 class="text-[1rem] font-bold text-deepBlue leading-tight">{{ item.item_name }}</h3>
+                    <p class="text-[0.65rem] text-textMuted font-bold uppercase">{{ item.category }}</p>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <span class="text-[0.7rem] text-textMuted font-medium">Location: {{ item.location }}</span>
                     </div>
                 </div>
+            </a>
+            {% empty %}
+            <div class="col-span-full py-20 text-center">
+                <p class="text-textMuted font-playfair italic">No items found.</p>
             </div>
+            {% endfor %}
         </div>
     </main>
+
+    <script>
+        function submitType(val) {
+            if (val === 'All') {
+                window.location.href = "{% url 'home' %}";
+            } else {
+                document.getElementById('type-input').value = val;
+                document.getElementById('filter-form').submit();
+            }
+        }
+    </script>
 {% endblock %}

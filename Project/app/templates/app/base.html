@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Nandito Ako · SJCDC{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -86,7 +87,7 @@
     <nav class="bg-navBlue text-white p-2 flex justify-between items-center min-h-[60px] border-b border-white/5">
                     <div class="flex items-center gap-3">
                         <a href="{% url 'home' %}" class="flex items-center gap-3 no-underline group">
-                <img src="{% static 'img/SJCDCLOGO.png' %}" alt="Logo" class="w-[35px] h-[35px] object-contain">
+                <img src="{% static 'app/img/SJCDCLOGO.png' %}" alt="Logo" class="w-[35px] h-[35px] object-contain">
 
                 <div class="flex flex-col leading-[1.1]">
                     <span class="font-playfair text-[0.8rem] font-bold tracking-[0.2px] text-white">

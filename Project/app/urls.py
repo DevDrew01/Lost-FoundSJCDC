@@ -3,10 +3,10 @@ from . import views
 
 urlpatterns = [
     path('', views.home_screen, name='home'),
-    path('', views.found_view_screen, name='found_view'),
+    path('item/<int:pk>/', views.item_detail, name='item_detail'),
     path('found-report/', views.found_report_screen, name='found_report'),
-    path('', views.lost_view_screen, name='lost_view'),
     path('lost-report/', views.lost_report_screen, name='lost_report'),
     path('', views.login_screen, name='login'),
+
 
 ]

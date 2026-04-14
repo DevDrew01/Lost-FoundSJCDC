@@ -71,9 +71,17 @@
 
                 <div class="flex flex-col gap-1.5 mb-4">
                     <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Photo Upload (Optional)</label>
-                    <div class="border-2 border-dashed border-[#d1d9e2] bg-[#f0f4f8] p-[20px] text-center rounded-[10px] cursor-pointer hover:bg-[#ebf0f5] transition-colors">
-                        <p class="text-[#11233d] font-semibold text-sm">Click or drag to upload</p>
-                        <span class="text-[0.65rem] text-[#a0aec0]">PNG, JPG up to 5MB</span>
+                    <div id="drop-zone" class="border-2 border-dashed border-[#d1d9e2] bg-[#f0f4f8] p-[20px] text-center rounded-[10px] cursor-pointer hover:bg-[#ebf0f5] transition-colors">
+                        <input type="file" id="file-input" accept="image/png, image/jpeg" class="hidden">
+                        <div id="upload-placeholder">
+                            <p id="upload-text" class="text-[#11233d] font-semibold text-sm">Click or drag to upload</p>
+                            <span class="text-[0.65rem] text-[#a0aec0]">PNG, JPG up to 5MB</span>
+                        </div>
+                        <div id="preview-container" class="hidden">
+                            <img id="preview-img" src="" alt="Preview" class="max-h-[200px] mx-auto rounded-lg object-contain mb-2">
+                            <p id="upload-text" class="text-[#11233d] font-semibold text-sm"></p>
+                            <span class="text-[0.65rem] text-[#a0aec0]">Click or drag to replace</span>
+                        </div>
                     </div>
                 </div>
 
@@ -89,4 +97,51 @@
             </form>
         </section>
     </main>
+
+    <script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const placeholder = document.getElementById('upload-placeholder');
+    const previewContainer = document.getElementById('preview-container');
+    const previewImg = document.getElementById('preview-img');
+    const previewName = previewContainer.querySelector('p');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) showPreview(fileInput.files[0]);
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.background = '#dce6f0';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.background = '';
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.background = '';
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            fileInput.files = dt.files;
+            showPreview(file);
+        }
+    });
+
+    function showPreview(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewImg.src = e.target.result;
+            previewName.textContent = file.name;
+            placeholder.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+    </script>
 {% endblock %}

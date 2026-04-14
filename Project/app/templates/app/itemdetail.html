@@ -1,0 +1,80 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}{{ item.item_name }} · Nandito Ako{% endblock %}
+
+{% block content %}
+<main class="max-w-[1100px] my-[50px] mx-auto mb-[60px] px-5 relative z-10">
+    <div class="text-[0.85rem] mb-[30px] text-breadcrumb-teal font-medium [word-spacing:8px]">
+        <a href="{% url 'home' %}" class="hover:underline">Home</a> › Browse › 
+        <b class="text-text-muted font-bold ml-[5px]">{{ item.item_name }}</b>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-[25px]">
+        <section class="bg-white rounded-radius shadow-custom overflow-hidden flex flex-col h-fit">
+            <div class="w-full aspect-square bg-[#DEE7F0] overflow-hidden">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.item_name }}" class="w-full h-full object-cover">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-400 italic text-sm">No Image Provided</div>
+                {% endif %}
+            </div>
+            
+            <div class="p-[25px]">
+                <h2 class="text-[1.2rem] font-bold mb-[25px] text-deep-blue">{{ item.item_name }}</h2>
+                <button class="block w-full py-2 px-4 rounded-[40px] font-semibold text-sm mb-2.5 transition-opacity hover:opacity-90 bg-lost-red text-white">Report This Post</button>
+                <button class="block w-full py-2 px-4 rounded-[40px] font-semibold text-sm transition-opacity hover:opacity-90 bg-accent-yellow text-white">Claim Item</button>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-radius shadow-custom overflow-hidden flex flex-col">
+            <div class="p-10">
+                <h3 class="uppercase text-[0.75rem] text-text-muted tracking-[1px] mb-[30px] border-b border-gray-100 pb-[15px] font-bold">Item Information</h3>
+                
+                <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                    <span class="text-text-muted font-medium">Status</span>
+                    <span class="{% if item.report_type == 'LOST' %}bg-lost-red{% else %}bg-found-green{% endif %} text-white py-1 px-[15px] rounded-[20px] text-[0.75rem] font-bold">
+                        {{ item.report_type }}
+                    </span>
+                </div>
+
+                <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                    <span class="text-text-muted font-medium">Category</span>
+                    <span class="text-text-dark font-bold text-right">{{ item.category }}</span>
+                </div>
+                
+                <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                    <span class="text-text-muted font-medium">
+                        {% if item.report_type == 'LOST' %}Last Seen{% else %}Location Found{% endif %}
+                    </span>
+                    <span class="text-text-dark font-bold text-right">{{ item.location }}</span>
+                </div>
+                
+                <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                    <span class="text-text-muted font-medium">
+                        Date {% if item.report_type == 'LOST' %}Lost{% else %}Found{% endif %}
+                    </span>
+                    <span class="text-text-dark font-bold text-right">{{ item.date_reported|date:"F d, Y" }}</span>
+                </div>
+                
+                <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                    <span class="text-text-muted font-medium">Reporter</span>
+                    <span class="text-text-dark font-bold text-right">{{ item.user.get_full_name|default:"Anonymous" }}</span>
+                </div>
+                
+                <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                    <span class="text-text-muted font-medium">Contact</span>
+                    <span class="text-text-dark font-bold text-right">{{ item.contact_info }}</span>
+                </div>
+
+                <div class="mt-[30px] pt-5 border-t border-gray-100">
+                    <span class="text-text-muted font-medium block mb-2">Description</span>
+                    <p class="text-text-dark font-bold text-left">{{ item.description }}</p>
+                </div>
+
+                <div class="mt-10 text-[0.8rem] text-text-muted text-right">Posted {{ item.created_at|timesince }} ago</div>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}
