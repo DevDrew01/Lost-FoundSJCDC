@@ -4,6 +4,7 @@
 {% block title %}Report Found Item · Nandito Ako{% endblock %}
 
 {% block content %}
+{% csrf_token %}
     <header class="bg-[#0D2C20] bg-gradient-to-r from-[#0D2C20] to-[#33995D] py-[80px] relative text-white">
         <div class="max-w-[1100px] mx-0 px-[5%] text-left">
             <p class="text-[0.7rem] uppercase tracking-[1px] mb-5 text-[#f0a500] font-semibold">PHINMA SJC DASMARIÑAS · LOST & FOUND PORTAL</p>
@@ -15,7 +16,7 @@
 
     <main class="max-w-2xl mx-auto mb-[60px] relative px-4 md:px-0">
         <div class="text-[0.85rem] mb-10 pt-10 text-[#1E5F74] font-medium flex items-center gap-[10px]">
-            Home <span class="text-[#6B7F96] font-bold mx-[5px]">›</span> Report Found Item
+            <a href="{% url 'home' %}" class="no-underline text-[#1E5F74]">Home</a> <span class="text-[#6B7F96] font-bold mx-[5px]">›</span> Report Found Item
         </div>
 
         <section class="bg-white rounded-[15px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden">
@@ -24,55 +25,57 @@
                 <p class="text-[#6a7c92] text-[0.9rem] font-medium">Provide as much as detail as possible.</p>
             </div>
 
-            <form class="px-8 pt-6">
+            <form method="POST" enctype="multipart/form-data" class="px-8 pt-6">
+                {% csrf_token %}
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Item Name *</label>
-                        <input type="text" placeholder="e.g. IPhone 14" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
+                        <input type="text" name="item_name" required placeholder="e.g. IPhone 14" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Category *</label>
-                        <select class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none cursor-pointer text-sm focus:border-[#d1d9e2]">
-                            <option>-- Select --</option>
-                            <option>Electronics</option>
-                            <option>Documents / IDs</option>
-                            <option>Personal Belongings</option>
-                            <option>Books / Materials</option>
+                        <select name="category" required class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none cursor-pointer text-sm focus:border-[#d1d9e2]">
+                            <option value="">-- Select --</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Documents / IDs">Documents / IDs</option>
+                            <option value="Personal Belongings">Personal Belongings</option>
+                            <option value="Books / Materials">Books / Materials</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5 mb-4">
                     <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Description *</label>
-                    <textarea placeholder="Color, brand, size, distinguishing marks, contents..." class="w-full h-[100px] p-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none resize-none text-sm focus:border-[#d1d9e2]"></textarea>
+                    <textarea name="description" required placeholder="Color, brand, size, distinguishing marks, contents..." class="w-full h-[100px] p-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none resize-none text-sm focus:border-[#d1d9e2]"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Found At Location *</label>
-                        <select class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none cursor-pointer text-sm focus:border-[#d1d9e2]">
-                            <option>-- Select --</option>
-                            <option>Library</option>
-                            <option>Canteen</option>
-                            <option>Auditorium</option>
-                            <option>Classroom</option>
+                        <select name="location" required class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none cursor-pointer text-sm focus:border-[#d1d9e2]">
+                            <option value="">-- Select --</option>
+                            <option value="Library">Library</option>
+                            <option value="Canteen">Canteen</option>
+                            <option value="Auditorium">Auditorium</option>
+                            <option value="Classroom">Classroom</option>
                         </select>
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Date Found *</label>
-                        <input type="date" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
+                        <input type="date" name="date_lost" required class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5 mb-4">
-                    <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Specific Location Detail</label>
-                    <input type="text" placeholder="e.g. 2nd Floor, Room 217" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
+                    <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Specific Location Detail (Optional)</label>
+                    <input type="text" name="location_detail" placeholder="e.g. 2nd Floor, Room 217" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
                 </div>
 
                 <div class="flex flex-col gap-1.5 mb-4">
                     <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Photo Upload (Optional)</label>
                     <div id="drop-zone" class="border-2 border-dashed border-[#d1d9e2] bg-[#f0f4f8] p-[20px] text-center rounded-[10px] cursor-pointer hover:bg-[#ebf0f5] transition-colors">
-                        <input type="file" id="file-input" accept="image/png, image/jpeg" class="hidden">
+                        <input type="file" id="file-input" name="image" accept="image/png, image/jpeg" class="hidden">
                         <div id="upload-placeholder">
                             <p id="upload-text" class="text-[#11233d] font-semibold text-sm">Click or drag to upload</p>
                             <span class="text-[0.65rem] text-[#a0aec0]">PNG, JPG up to 5MB</span>
@@ -85,27 +88,27 @@
                     </div>
                 </div>
 
-                <div class="surrender-box">
-                    <div class="surrender-header">Surrender Details</div>
+                <div class="surrender-box bg-[#f8fafc] border border-[#e2e8f0] rounded-lg mb-4">
+                    <div class="surrender-header bg-[#edf2f7] p-3 text-[0.7rem] font-bold text-[#6a7c92] uppercase rounded-t-lg">Surrender Details</div>
                     <div class="p-4 flex flex-col gap-4">
                         <div class="flex flex-col gap-1.5">
                             <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Where did you surrender the item? *</label>
-                            <input type="text" placeholder="e.g. CSDL Office" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-white outline-none text-sm focus:border-[#d1d9e2]">
+                            <input type="text" name="surrender_location" required placeholder="e.g. CSDL Office" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-white outline-none text-sm focus:border-[#d1d9e2]">
                         </div>
                         <div class="flex flex-col gap-1.5">
                             <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Pick up Time *</label>
-                            <input type="text" placeholder="e.g. 10 am to 12 pm only." class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-white outline-none text-sm focus:border-[#d1d9e2]">
+                            <input type="text" name="pickup_time" required placeholder="e.g. 10 am to 12 pm only." class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-white outline-none text-sm focus:border-[#d1d9e2]">
                         </div>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5 mb-6">
                     <label class="text-[0.7rem] font-bold text-[#6a7c92] uppercase">Contact Information *</label>
-                    <input type="text" placeholder="e.g. Facebook account, email, or mobile number" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
+                    <input type="text" name="contact" required placeholder="e.g. Facebook account, email, or mobile number" class="w-full h-[45px] px-[12px] border border-[#eee] rounded-lg bg-[#fcfaf7] outline-none text-sm focus:border-[#d1d9e2]">
                 </div>
 
                 <div class="flex justify-end gap-[12px] border-t border-[#edf2f7] p-6 -mx-8 bg-white mt-4">
-                    <a href="{% url 'home' %}" class="px-6 py-2.5 rounded-lg border border-[#CCD3DA] bg-[#EEF2F7] text-[#6B7F96] font-semibold text-sm hover:opacity-90 transition-opacity">Cancel</a>
+                    <a href="{% url 'home' %}" class="px-6 py-2.5 rounded-lg border border-[#CCD3DA] bg-[#EEF2F7] text-[#6B7F96] font-semibold text-sm hover:opacity-90 transition-opacity no-underline">Cancel</a>
                     <button type="submit" class="px-6 py-2.5 rounded-lg bg-[#11233d] text-white font-semibold text-sm hover:opacity-90 transition-opacity">Submit Report</button>
                 </div>
             </form>

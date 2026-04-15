@@ -6,6 +6,7 @@ class ItemReport(models.Model):
     REPORT_TYPES = [
         ('LOST', 'Lost'),
         ('FOUND', 'Found'),
+        ('CLAIMED', 'Claimed'),
     ]
 
     item_name = models.CharField(max_length=200)
@@ -13,7 +14,7 @@ class ItemReport(models.Model):
     description = models.TextField()
     location = models.CharField(max_length=255)
     date_reported = models.DateField()
-    report_type = models.CharField(max_length=5, choices=REPORT_TYPES)
+    report_type = models.CharField(max_length=10, choices=REPORT_TYPES)
 
     # This stores the image path (requires 'Pillow' library)
     image = models.ImageField(upload_to='item_photos/', null=True, blank=True)

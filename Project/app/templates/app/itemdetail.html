@@ -4,77 +4,163 @@
 {% block title %}{{ item.item_name }} · Nandito Ako{% endblock %}
 
 {% block content %}
-<main class="max-w-[1100px] my-[50px] mx-auto mb-[60px] px-5 relative z-10">
-    <div class="text-[0.85rem] mb-[30px] text-breadcrumb-teal font-medium [word-spacing:8px]">
-        <a href="{% url 'home' %}" class="hover:underline">Home</a> › Browse › 
-        <b class="text-text-muted font-bold ml-[5px]">{{ item.item_name }}</b>
+{% csrf_token %}
+    <header class="relative text-white py-20 bg-[linear-gradient(110deg,#0D1F35_20%,#035149_55%,#016C37_100%)] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1.5 after:bg-[linear-gradient(90deg,#F0A500_5%,#016C37_100%)]">
+        <div class="max-w-[1100px] ml-0 px-[5%] text-left">
+            <p class="text-[0.7rem] uppercase tracking-[1px] mb-5 text-accent-yellow font-semibold">PHINMA SJC DASMARIÑAS · LOST & FOUND PORTAL</p>
+            <h1 class="font-playfair text-[3.5rem] leading-[1.1] mb-5">Find What Matters.<br>Return What Isn't Yours.</h1>
+            <p class="max-w-[450px] leading-[1.4] font-light opacity-90">Nandito Ako keeps every listing organized and searchable — so items get found, not forgotten in a feed.</p>
+        </div>
+    </header>
+
+    <main class="max-w-[1100px] my-[50px] mx-auto mb-[60px] px-5 relative z-10">
+        <div class="text-[0.85rem] mb-[30px] text-[#1E5F74] font-medium [word-spacing:8px]">
+            <a href="{% url 'home' %}" class="no-underline text-[#1E5F74]">Home</a> › <b class="text-[#6b7f96] font-bold ml-[5px]">{{ item.item_name }}</b>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-[25px]">
+            <section class="bg-white rounded-[18px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                <div class="w-full aspect-square bg-[#DEE7F0] overflow-hidden">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.item_name }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-[#6b7f96] font-bold uppercase text-xs">No Photo</div>
+                    {% endif %}
+                </div>
+
+                <div class="p-[25px]">
+                    <h2 class="text-[1.2rem] font-bold mb-[25px] text-[#0D1F35]">{{ item.item_name }}</h2>
+
+                    <button onclick="processClaim()" class="block w-full py-2 px-4 rounded-[40px] font-semibold text-sm mb-2.5 transition-opacity hover:opacity-90 bg-[#f0a500] text-white">
+                        {% if item.report_type == 'LOST' %}I found this item{% else %}Claim this item{% endif %}
+                    </button>
+
+                    <button onclick="openReportWindow()" class="block w-full py-2 px-4 rounded-[40px] font-semibold text-sm transition-opacity hover:opacity-90 bg-[#e05252] text-white">Report This Post</button>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-[18px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                <div class="p-10">
+                    <h3 class="uppercase text-[0.75rem] text-[#6b7f96] tracking-[1px] mb-[30px] border-b border-gray-100 pb-[15px] font-bold">Item Information</h3>
+
+                    <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                        <span class="text-[#6b7f96] font-medium">Status</span>
+                        <span id="statusBadge" class="{% if item.report_type == 'LOST' %}bg-lost-red{% elif item.report_type == 'FOUND' %}bg-[#42B883]{% else %}bg-accent-yellow{% endif %} text-white py-1 px-[15px] rounded-[20px] text-[0.75rem] font-bold">
+                            {{ item.report_type }}
+                        </span>
+                    </div>
+
+                    <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                        <span class="text-[#6b7f96] font-medium">Category</span>
+                        <span class="text-[#0d1f35] font-bold text-right">{{ item.category }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                        <span class="text-[#6b7f96] font-medium">Location</span>
+                        <span class="text-[#0d1f35] font-bold text-right">{{ item.location }}</span>
+                    </div>
+
+                    {% if item.location_detail %}
+                    <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                        <span class="text-[#6b7f96] font-medium">Detail</span>
+                        <span class="text-[#0d1f35] font-bold text-right">{{ item.location_detail }}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                        <span class="text-[#6b7f96] font-medium">Date Reported</span>
+                        <span class="text-[#0d1f35] font-bold text-right">{{ item.date_reported|date:"F d, Y" }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-[18px] text-[0.9rem]">
+                        <span class="text-[#6b7f96] font-medium">Contact</span>
+                        <span class="text-[#0d1f35] font-bold text-right">{{ item.contact_info }}</span>
+                    </div>
+
+                    <div class="mt-[30px] pt-5 border-t border-gray-100">
+                        <span class="text-[#6b7f96] font-medium block mb-2">Description</span>
+                        <p class="text-[#0d1f35] font-bold text-left">{{ item.description }}</p>
+                    </div>
+
+                    <div class="mt-10 text-[0.8rem] text-[#6b7f96] text-right">Posted {{ item.created_at|timesince }} ago</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="reportWindow" class="hidden fixed inset-0 z-[150] flex items-center justify-center bg-deep-blue/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-[400px] rounded-radius shadow-2xl p-8 text-center relative border-t-4 border-lost-red">
+            <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-lost-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+            </div>
+
+            <h2 class="font-serif text-2xl text-deep-blue mb-2">Report Submitted</h2>
+            <p class="text-text-muted text-sm leading-relaxed mb-6">
+                Thank you for flagging this post. Our moderators will review this listing to ensure it aligns with our community guidelines.
+            </p>
+
+            <button onclick="closeReportWindow()" class="w-full py-3 bg-lost-red text-white rounded-[40px] font-bold text-sm hover:opacity-90 transition-colors">
+                Close
+            </button>
+        </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-[25px]">
-        <section class="bg-white rounded-radius shadow-custom overflow-hidden flex flex-col h-fit">
-            <div class="w-full aspect-square bg-[#DEE7F0] overflow-hidden">
-                {% if item.image %}
-                    <img src="{{ item.image.url }}" alt="{{ item.item_name }}" class="w-full h-full object-cover">
-                {% else %}
-                    <div class="w-full h-full flex items-center justify-center text-gray-400 italic text-sm">No Image Provided</div>
-                {% endif %}
+    <div id="successModal" class="hidden fixed inset-0 z-[150] flex items-center justify-center bg-[#0D1F35]/60 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-[400px] rounded-[18px] shadow-2xl p-8 text-center relative border-t-4 border-[#f0a500]">
+            <div class="w-16 h-16 bg-[#faf9f6] rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-[#42B883]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
             </div>
-            
-            <div class="p-[25px]">
-                <h2 class="text-[1.2rem] font-bold mb-[25px] text-deep-blue">{{ item.item_name }}</h2>
-                <button class="block w-full py-2 px-4 rounded-[40px] font-semibold text-sm mb-2.5 transition-opacity hover:opacity-90 bg-lost-red text-white">Report This Post</button>
-                <button class="block w-full py-2 px-4 rounded-[40px] font-semibold text-sm transition-opacity hover:opacity-90 bg-accent-yellow text-white">Claim Item</button>
-            </div>
-        </section>
-
-        <section class="bg-white rounded-radius shadow-custom overflow-hidden flex flex-col">
-            <div class="p-10">
-                <h3 class="uppercase text-[0.75rem] text-text-muted tracking-[1px] mb-[30px] border-b border-gray-100 pb-[15px] font-bold">Item Information</h3>
-                
-                <div class="flex justify-between mb-[18px] text-[0.9rem]">
-                    <span class="text-text-muted font-medium">Status</span>
-                    <span class="{% if item.report_type == 'LOST' %}bg-lost-red{% else %}bg-found-green{% endif %} text-white py-1 px-[15px] rounded-[20px] text-[0.75rem] font-bold">
-                        {{ item.report_type }}
-                    </span>
-                </div>
-
-                <div class="flex justify-between mb-[18px] text-[0.9rem]">
-                    <span class="text-text-muted font-medium">Category</span>
-                    <span class="text-text-dark font-bold text-right">{{ item.category }}</span>
-                </div>
-                
-                <div class="flex justify-between mb-[18px] text-[0.9rem]">
-                    <span class="text-text-muted font-medium">
-                        {% if item.report_type == 'LOST' %}Last Seen{% else %}Location Found{% endif %}
-                    </span>
-                    <span class="text-text-dark font-bold text-right">{{ item.location }}</span>
-                </div>
-                
-                <div class="flex justify-between mb-[18px] text-[0.9rem]">
-                    <span class="text-text-muted font-medium">
-                        Date {% if item.report_type == 'LOST' %}Lost{% else %}Found{% endif %}
-                    </span>
-                    <span class="text-text-dark font-bold text-right">{{ item.date_reported|date:"F d, Y" }}</span>
-                </div>
-                
-                <div class="flex justify-between mb-[18px] text-[0.9rem]">
-                    <span class="text-text-muted font-medium">Reporter</span>
-                    <span class="text-text-dark font-bold text-right">{{ item.user.get_full_name|default:"Anonymous" }}</span>
-                </div>
-                
-                <div class="flex justify-between mb-[18px] text-[0.9rem]">
-                    <span class="text-text-muted font-medium">Contact</span>
-                    <span class="text-text-dark font-bold text-right">{{ item.contact_info }}</span>
-                </div>
-
-                <div class="mt-[30px] pt-5 border-t border-gray-100">
-                    <span class="text-text-muted font-medium block mb-2">Description</span>
-                    <p class="text-text-dark font-bold text-left">{{ item.description }}</p>
-                </div>
-
-                <div class="mt-10 text-[0.8rem] text-text-muted text-right">Posted {{ item.created_at|timesince }} ago</div>
-            </div>
-        </section>
+            <h2 class="font-playfair text-2xl text-[#0D1F35] mb-2">Action Recorded!</h2>
+            <p class="text-[#6b7f96] text-sm leading-relaxed mb-6">The status has been updated to <b>CLAIMED</b>. Coordination with the reporter is advised.</p>
+            <button onclick="closeSuccessModal()" class="w-full py-3 bg-[#0D1F35] text-white rounded-[40px] font-bold text-sm hover:opacity-90 transition-colors">Understood</button>
+        </div>
     </div>
-</main>
+
+    <script>
+        function openReportWindow() {
+            document.getElementById('reportWindow').classList.remove('hidden');
+        }
+
+        function closeReportWindow() {
+            document.getElementById('reportWindow').classList.add('hidden');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            // Refresh the page to show the "CLAIMED" status everywhere (including Homepage)
+            window.location.reload();
+        }
+
+        function processClaim() {
+            fetch("{% url 'claim_item' item.id %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    const badge = document.getElementById('statusBadge');
+                    if(badge) {
+                        badge.innerText = "CLAIMED";
+                        badge.classList.remove('bg-lost-red', 'bg-[#42B883]');
+                        badge.classList.add('bg-accent-yellow');
+                    }
+                    document.getElementById('successModal').classList.remove('hidden');
+                }
+            });
+        }
+
+        // Close modals when clicking outside the box
+        window.onclick = function(event) {
+            const reportWin = document.getElementById('reportWindow');
+            const successMod = document.getElementById('successModal');
+            if (event.target == reportWin) closeReportWindow();
+            if (event.target == successMod) closeSuccessModal();
+        }
+    </script>
 {% endblock %}
