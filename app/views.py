@@ -1,9 +1,11 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
-from .models import ItemReport
+from .models import ItemReport, Notification
 from .forms import ItemReportForm
 
 
@@ -82,12 +84,49 @@ def save_item_report(request, r_type):
     )
 
 
-@require_POST
-def claim_item(request, item_id): # Ensure 'item_id' is here
-    item = get_object_or_404(ItemReport, id=item_id)
-    item.report_type = 'CLAIMED'
-    item.save()
-    return JsonResponse({'status': 'success'})
+def claim_item(request, item_id):
+    if request.method == "POST":
+        item = ItemReport.objects.get(id=item_id)
+
+        # 1. Update the item status
+        item.report_type = 'CLAIMED'
+        item.save()
+
+        # 2. Notify the person who posted it
+        # (item.user is the original poster)
+        Notification.objects.create(
+            recipient=item.user,
+            message=f"Someone has claimed your item: {item.item_name}!",
+            item=item
+        )
+
+        return JsonResponse({"status": "success"})
+
+    return JsonResponse({"status": "error"}, status=400)
+
 
 def login_screen(request):
+    ALLOWED_USERS = [
+        '10-2526-301491',
+        '10-2526-301492',
+        '10-2526-301493',
+        '10-2526-301494',
+        '10-2526-301495',
+        'admin'
+    ]
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if username in ALLOWED_USERS:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+
+        # If we get here, login failed
+        messages.error(request, "Invalid Student ID or Password. Please try again.")
+        return redirect('login')  # Make sure 'login' matches the name in your urls.py
+
     return render(request, 'app/loginpage.html')

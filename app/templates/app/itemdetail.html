@@ -88,7 +88,7 @@
         </div>
     </main>
 
-    <div id="reportWindow" class="hidden fixed inset-0 z-[150] flex items-center justify-center bg-deep-blue/60 backdrop-blur-sm p-4">
+    <div id="reportWindow" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-deep-blue/60 backdrop-blur-sm p-4">
         <div class="bg-white w-full max-w-[400px] rounded-radius shadow-2xl p-8 text-center relative border-t-4 border-lost-red">
             <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg class="w-8 h-8 text-lost-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,16 +122,21 @@
 
     <script>
         function openReportWindow() {
-            document.getElementById('reportWindow').classList.remove('hidden');
+            const reportWin = document.getElementById('reportWindow');
+            reportWin.classList.remove('hidden');
+            // Force the display to flex so it centers correctly
+            reportWin.style.display = 'flex';
         }
 
         function closeReportWindow() {
-            document.getElementById('reportWindow').classList.add('hidden');
+            const reportWin = document.getElementById('reportWindow');
+            reportWin.classList.add('hidden');
+            reportWin.style.display = 'none';
         }
 
         function closeSuccessModal() {
             document.getElementById('successModal').classList.add('hidden');
-            // Refresh the page to show the "CLAIMED" status everywhere (including Homepage)
+            document.getElementById('successModal').style.display = 'none';
             window.location.reload();
         }
 
@@ -150,12 +155,13 @@
                         badge.classList.remove('bg-lost-red', 'bg-[#42B883]');
                         badge.classList.add('bg-accent-yellow');
                     }
-                    document.getElementById('successModal').classList.remove('hidden');
+                    const successMod = document.getElementById('successModal');
+                    successMod.classList.remove('hidden');
+                    successMod.style.display = 'flex';
                 }
             });
         }
 
-        // Close modals when clicking outside the box
         window.onclick = function(event) {
             const reportWin = document.getElementById('reportWindow');
             const successMod = document.getElementById('successModal');

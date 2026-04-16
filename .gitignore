@@ -24,3 +24,10 @@ staticfiles/
 # IDE settings
 .idea/
 .vscode/
+
+# Node/Tailwind (if you ever use npm/npx)
+node_modules/
+
+# Railway/System
+.railway/
+.DS_Store

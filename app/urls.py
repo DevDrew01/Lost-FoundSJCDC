@@ -7,6 +7,7 @@ urlpatterns = [
     path('claim/<int:item_id>/', views.claim_item, name='claim_item'),
     path('found-report/', views.found_report_screen, name='found_report'),
     path('lost-report/', views.lost_report_screen, name='lost_report'),
+    path('claim/<int:item_id>/', views.claim_item, name='claim_item'),
     path('', views.login_screen, name='login'),
 
 

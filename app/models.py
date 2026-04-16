@@ -28,3 +28,13 @@ class ItemReport(models.Model):
 
     def __str__(self):
         return f"{self.report_type}: {self.item_name}"
+
+class Notification(models.Model):
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    message = models.CharField(max_length=255)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    item = models.ForeignKey('ItemReport', on_delete=models.SET_NULL, null=True) # Link to the lost item
+
+    class Meta:
+        ordering = ['-created_at']
