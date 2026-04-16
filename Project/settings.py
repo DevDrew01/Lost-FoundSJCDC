@@ -113,7 +113,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=env('DATABASE_URL', default='sqlite:///db.sqlite3'),
+        default=env(default='sqlite:///db.sqlite3'),
         conn_max_age=600
     )
 }
