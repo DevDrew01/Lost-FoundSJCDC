@@ -1,1 +1,1 @@
-web: python manage.py migrate && python seed_users.py && gunicorn Project.wsgi
+web: python manage.py migrate && python seed_users.py && gunicorn Lost-FoundSJCDC.wsgi
