@@ -24,6 +24,7 @@ class ItemReport(models.Model):
 
     # This links the report to a specific student (User)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return f"{self.report_type}: {self.item_name}"
