@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'nandito-ako.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
