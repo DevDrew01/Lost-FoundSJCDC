@@ -1,9 +1,17 @@
-# app/context_processors.py
 from .models import Notification
 
 def notification_context(request):
     if request.user.is_authenticated:
-        # Get only unread notifications for the logged-in user
-        notes = Notification.objects.filter(recipient=request.user, is_read=False).order_with_respect_to('created_at')
-        return {'notifications': notes}
-    return {'notifications': []}
+        notifications = Notification.objects.filter(
+            recipient=request.user,
+            is_read=False
+        ).order_by('-created_at')
+
+        return {
+            'notifications': notifications,
+            'unread_notifications_count': notifications.count()
+        }
+    return {
+        'notifications': [],
+        'unread_notifications_count': 0
+    }
