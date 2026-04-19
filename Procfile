@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py collectstatic --noinput && python seed_users.py && gunicorn Project.wsgi --bind 0.0.0.0:$PORT
+web: chmod -R 755 /app/media && python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Project.wsgi --bind 0.0.0.0:$PORT
