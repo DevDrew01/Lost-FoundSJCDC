@@ -32,11 +32,11 @@ Since the deployment isn't live anymore, here are the Figma prototype screens sh
 
 | Item Details (Found) | Item Details (Lost) |
 |---|---|
-| ![Item found detail](screenshots/item-found.png) | ![Item lost detail](screenshots/item-lost.png) |
+| ![Item found detail](screenshots/found-post.png) | ![Item lost detail](screenshots/lost-post.png) |
 
 | Claim Success | Report Submitted |
 |---|---|
-| ![Claim success](screenshots/claim-success.png) | ![Report submitted](screenshots/report-submitted.png) |
+| ![Claim success](screenshots/claim-window.png) | ![Report submitted](screenshots/report-window.png) |
 
 *Full user flow diagram:*
 ![User flow](screenshots/user-flow.png)
