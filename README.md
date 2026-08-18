@@ -38,9 +38,6 @@ Since the deployment isn't live anymore, here are the Figma prototype screens sh
 |---|---|
 | ![Claim success](screenshots/claim-window.png) | ![Report submitted](screenshots/report-window.png) |
 
-*Full user flow diagram:*
-![User flow](screenshots/user-flow.png)
-
 ## Tech Stack
 
 **Backend & Security**
